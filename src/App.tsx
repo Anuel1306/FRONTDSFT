@@ -1,4 +1,6 @@
-import { FormEvent, ReactNode, useState } from 'react';
+import { FormEvent, ReactNode, useEffect, useState } from 'react';
+import PasswordRecoveryWizard from './screens/PasswordRecoveryWizard';
+import UserManagement from './screens/UserManagement';
 
 type IconName = 'arrow' | 'check' | 'eye' | 'eyeOff' | 'github' | 'google' | 'lock' | 'mail' | 'shield';
 
@@ -142,6 +144,17 @@ export default function App() {
   const [showPassword, setShowPassword] = useState(false);
   const [verified, setVerified] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [hash, setHash] = useState(window.location.hash);
+
+  useEffect(() => {
+    const onHashChange = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  // Screen routing by hash: #recuperar (password recovery) and #usuarios (user management).
+  if (hash === '#recuperar') return <PasswordRecoveryWizard />;
+  if (hash === '#usuarios') return <UserManagement />;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
