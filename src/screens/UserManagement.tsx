@@ -18,7 +18,7 @@ const controlClass =
   'h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-100';
 
 function formatDate(isoDate: string) {
-  return new Date(`${isoDate}T00:00:00Z`).toLocaleDateString('en-US', {
+  return new Date(`${isoDate}T00:00:00Z`).toLocaleDateString('es-CO', {
     year: 'numeric',
     month: 'short',
     day: '2-digit',
@@ -73,7 +73,7 @@ export default function UserManagement() {
   }
 
   function handleDelete(user: AppUser) {
-    if (window.confirm(`Delete ${user.fullName}? This cannot be undone.`)) {
+    if (window.confirm(`¿Eliminar a ${user.fullName}? Esta acción no se puede deshacer.`)) {
       setUsers((current) => current.filter((item) => item.id !== user.id));
     }
   }
@@ -102,19 +102,19 @@ export default function UserManagement() {
                 type="search"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search by name or email"
-                aria-label="Search users"
+                placeholder="Buscar por nombre o correo"
+                aria-label="Buscar usuarios"
                 className={`${controlClass} w-full pl-9 sm:w-72`}
               />
             </div>
 
             <select
-              aria-label="Filter by role"
+              aria-label="Filtrar por rol"
               value={roleFilter}
               onChange={(event) => setRoleFilter(event.target.value as Role | 'All')}
               className={controlClass}
             >
-              <option value="All">All roles</option>
+              <option value="All">Todos los roles</option>
               {ROLES.map((role) => (
                 <option key={role} value={role}>
                   {role}
@@ -123,14 +123,14 @@ export default function UserManagement() {
             </select>
 
             <select
-              aria-label="Filter by status"
+              aria-label="Filtrar por estado"
               value={statusFilter}
               onChange={(event) => setStatusFilter(event.target.value as UserStatus | 'All')}
               className={controlClass}
             >
-              <option value="All">All statuses</option>
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+              <option value="All">Todos los estados</option>
+              <option value="Active">Activo</option>
+              <option value="Inactive">Inactivo</option>
             </select>
           </div>
 
@@ -139,7 +139,7 @@ export default function UserManagement() {
             onClick={openCreate}
             className="h-10 shrink-0 rounded-lg bg-indigo-600 px-4 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 lg:self-auto"
           >
-            + Create User
+            + Crear usuario
           </button>
         </div>
 
@@ -147,11 +147,11 @@ export default function UserManagement() {
           <table className="min-w-[760px] w-full divide-y divide-slate-200 text-sm">
             <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
               <tr>
-                <th scope="col" className="px-4 py-3">Full Name</th>
-                <th scope="col" className="px-4 py-3">Email</th>
-                <th scope="col" className="px-4 py-3">Assigned Role</th>
-                <th scope="col" className="px-4 py-3">Registration Date</th>
-                <th scope="col" className="px-4 py-3 text-right">Actions</th>
+                <th scope="col" className="px-4 py-3">Nombre completo</th>
+                <th scope="col" className="px-4 py-3">Correo electrónico</th>
+                <th scope="col" className="px-4 py-3">Rol asignado</th>
+                <th scope="col" className="px-4 py-3">Fecha de registro</th>
+                <th scope="col" className="px-4 py-3 text-right">Acciones</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -173,8 +173,8 @@ export default function UserManagement() {
                       <button
                         type="button"
                         onClick={() => openEdit(user)}
-                        aria-label={`Edit ${user.fullName}`}
-                        title="Edit"
+                        aria-label={`Editar ${user.fullName}`}
+                        title="Editar"
                         className="grid h-8 w-8 place-items-center rounded-md text-slate-500 hover:bg-indigo-50 hover:text-indigo-700"
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -185,8 +185,8 @@ export default function UserManagement() {
                       <button
                         type="button"
                         onClick={() => handleDelete(user)}
-                        aria-label={`Delete ${user.fullName}`}
-                        title="Delete"
+                        aria-label={`Eliminar ${user.fullName}`}
+                        title="Eliminar"
                         className="grid h-8 w-8 place-items-center rounded-md text-slate-500 hover:bg-red-50 hover:text-red-600"
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -203,7 +203,7 @@ export default function UserManagement() {
               {visibleUsers.length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-4 py-10 text-center text-slate-500">
-                    No users match your filters.
+                    No hay usuarios que coincidan con los filtros.
                   </td>
                 </tr>
               )}
@@ -212,7 +212,7 @@ export default function UserManagement() {
         </div>
 
         <p className="mt-3 text-xs text-slate-500">
-          Showing {visibleUsers.length} of {users.length} users
+          Mostrando {visibleUsers.length} de {users.length} usuarios
         </p>
       </div>
 
