@@ -164,6 +164,19 @@ export default function LoginScreen() {
               <span>Iniciar sesión</span>
               <Icon name="arrow" />
             </button>
+
+            <div className="divider"><span>o continúa con</span></div>
+
+            <div className="social-row">
+              <button className="social-button" type="button">
+                <Icon name="google" />
+                Google
+              </button>
+              <button className="social-button" type="button">
+                <Icon name="github" />
+                GitHub
+              </button>
+            </div>
           </form>
 
           <p className="register-copy">
