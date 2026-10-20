@@ -980,7 +980,9 @@ a:focus-visible {
 
   .wizard-panel {
     min-height: 100svh;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     padding: 30px 24px 80px;
   }
 
