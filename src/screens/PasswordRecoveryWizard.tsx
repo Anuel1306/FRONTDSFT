@@ -2,12 +2,12 @@ import { ChangeEvent, ClipboardEvent, FormEvent, Fragment, KeyboardEvent, useRef
 
 type WizardStep = 1 | 2 | 3; // 3 = success
 
-const STEPS = ['Verify email', 'Reset password'];
+const STEPS = ['Verificar correo', 'Restablecer contraseña'];
 
 const PASSWORD_RULES = [
-  { label: '8+ characters', test: (value: string) => value.length >= 8 },
-  { label: 'A letter', test: (value: string) => /[A-Za-z]/.test(value) },
-  { label: 'A number', test: (value: string) => /\d/.test(value) },
+  { label: '8 o más caracteres', test: (value: string) => value.length >= 8 },
+  { label: 'Una letra', test: (value: string) => /[A-Za-z]/.test(value) },
+  { label: 'Un número', test: (value: string) => /\d/.test(value) },
 ];
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,7 +24,7 @@ export default function PasswordRecoveryWizard() {
   function handleSendPin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!EMAIL_PATTERN.test(email.trim())) {
-      setError('Enter a valid email address.');
+      setError('Ingresa un correo electrónico válido.');
       return;
     }
     setError(null);
@@ -54,15 +54,15 @@ export default function PasswordRecoveryWizard() {
   function handleReset(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (pin.join('').length !== 6) {
-      setError('Enter the 6-digit PIN.');
+      setError('Ingresa el PIN de 6 dígitos.');
       return;
     }
     if (!PASSWORD_RULES.every((rule) => rule.test(newPassword))) {
-      setError('Your new password does not meet the requirements.');
+      setError('Tu nueva contraseña no cumple los requisitos.');
       return;
     }
     if (newPassword !== confirmPassword) {
-      setError('The passwords do not match.');
+      setError('Las contraseñas no coinciden.');
       return;
     }
     setError(null);
@@ -83,7 +83,7 @@ export default function PasswordRecoveryWizard() {
                   <span>{step > number ? '✓' : number}</span>
                   <div>
                     <strong>{label}</strong>
-                    <small>Step {number} of 2</small>
+                    <small>Paso {number} de 2</small>
                   </div>
                 </div>
               </Fragment>
@@ -94,14 +94,14 @@ export default function PasswordRecoveryWizard() {
         {step === 1 && (
           <>
             <div className="wizard-heading">
-              <span className="step-kicker">Account recovery</span>
-              <h2>Forgot your password?</h2>
-              <p>Enter the email linked to your account and we will send a 6-digit PIN to verify it is you.</p>
+              <span className="step-kicker">Recuperación de cuenta</span>
+              <h2>¿Olvidaste tu contraseña?</h2>
+              <p>Ingresa el correo asociado a tu cuenta y te enviaremos un PIN de 6 dígitos para verificar que eres tú.</p>
             </div>
 
             <form onSubmit={handleSendPin} noValidate>
               <label className="field">
-                <span>Email address</span>
+                <span>Correo electrónico</span>
                 <div className="input-wrap">
                   <input
                     type="email"
@@ -117,12 +117,12 @@ export default function PasswordRecoveryWizard() {
               {error && <p className="form-error" role="alert">{error}</p>}
 
               <button className="primary-button" type="submit">
-                <span>Send PIN</span>
+                <span>Enviar PIN</span>
               </button>
             </form>
 
             <p className="register-copy">
-              <a href="#">Back to sign in</a>
+              <a href="#">Volver a iniciar sesión</a>
             </p>
           </>
         )}
@@ -130,16 +130,16 @@ export default function PasswordRecoveryWizard() {
         {step === 2 && (
           <>
             <div className="wizard-heading">
-              <span className="step-kicker">Account recovery</span>
-              <h2>Enter your PIN</h2>
+              <span className="step-kicker">Recuperación de cuenta</span>
+              <h2>Ingresa tu PIN</h2>
               <p>
-                We sent a 6-digit code to <strong>{email.trim()}</strong>. Set a new password below.
+                Enviamos un código de 6 dígitos a <strong>{email.trim()}</strong>. Crea una nueva contraseña abajo.
               </p>
             </div>
 
             <form onSubmit={handleReset} noValidate>
               <fieldset className="pin-fieldset">
-                <legend>6-digit PIN</legend>
+                <legend>PIN de 6 dígitos</legend>
                 <div className="pin-row">
                   {pin.map((digit, index) => (
                     <input
@@ -150,7 +150,7 @@ export default function PasswordRecoveryWizard() {
                       type="text"
                       inputMode="numeric"
                       autoComplete={index === 0 ? 'one-time-code' : 'off'}
-                      aria-label={`PIN digit ${index + 1}`}
+                      aria-label={`Dígito ${index + 1} del PIN`}
                       value={digit}
                       autoFocus={index === 0}
                       onChange={(event) => handlePinChange(index, event)}
@@ -160,7 +160,7 @@ export default function PasswordRecoveryWizard() {
                   ))}
                 </div>
                 <div className="pin-meta">
-                  <span>Code expires in 10 minutes</span>
+                  <span>El código expira en 10 minutos</span>
                   <button
                     type="button"
                     onClick={() => {
@@ -168,18 +168,18 @@ export default function PasswordRecoveryWizard() {
                       pinRefs.current[0]?.focus();
                     }}
                   >
-                    Resend PIN
+                    Reenviar PIN
                   </button>
                 </div>
               </fieldset>
 
               <label className="field">
-                <span>New Password</span>
+                <span>Nueva contraseña</span>
                 <div className="input-wrap">
                   <input
                     type="password"
                     name="newPassword"
-                    placeholder="Create a new password"
+                    placeholder="Crea una nueva contraseña"
                     autoComplete="new-password"
                     value={newPassword}
                     onChange={(event) => setNewPassword(event.target.value)}
@@ -197,12 +197,12 @@ export default function PasswordRecoveryWizard() {
               </div>
 
               <label className="field">
-                <span>Confirm New Password</span>
+                <span>Confirmar nueva contraseña</span>
                 <div className="input-wrap">
                   <input
                     type="password"
                     name="confirmPassword"
-                    placeholder="Repeat the new password"
+                    placeholder="Repite la nueva contraseña"
                     autoComplete="new-password"
                     value={confirmPassword}
                     onChange={(event) => setConfirmPassword(event.target.value)}
@@ -213,7 +213,7 @@ export default function PasswordRecoveryWizard() {
               {error && <p className="form-error" role="alert">{error}</p>}
 
               <button className="primary-button" type="submit">
-                <span>Reset Password</span>
+                <span>Restablecer contraseña</span>
               </button>
             </form>
 
@@ -225,7 +225,7 @@ export default function PasswordRecoveryWizard() {
                 setStep(1);
               }}
             >
-              Use a different email
+              Usar otro correo
             </button>
           </>
         )}
@@ -237,10 +237,10 @@ export default function PasswordRecoveryWizard() {
                 <path d="m5 12 4.2 4.2L19 6.5" />
               </svg>
             </div>
-            <h2>Password updated</h2>
-            <p>Your password has been reset. You can now sign in with your new password.</p>
+            <h2>Contraseña actualizada</h2>
+            <p>Tu contraseña fue restablecida. Ya puedes iniciar sesión con tu nueva contraseña.</p>
             <a className="primary-button" href="#">
-              <span>Back to sign in</span>
+              <span>Volver a iniciar sesión</span>
             </a>
           </div>
         )}

@@ -38,10 +38,10 @@ export default function UserFormModal({ user, onClose, onSave }: UserFormModalPr
     event.preventDefault();
     const next: FormErrors = {};
 
-    if (!fullName.trim()) next.fullName = 'Full name is required.';
-    if (!EMAIL_PATTERN.test(email.trim())) next.email = 'Enter a valid email address.';
-    if (!password && !isEdit) next.password = 'Password is required.';
-    else if (password && password.length < 8) next.password = 'Use at least 8 characters.';
+    if (!fullName.trim()) next.fullName = 'El nombre completo es obligatorio.';
+    if (!EMAIL_PATTERN.test(email.trim())) next.email = 'Ingresa un correo electrónico válido.';
+    if (!password && !isEdit) next.password = 'La contraseña es obligatoria.';
+    else if (password && password.length < 8) next.password = 'Usa al menos 8 caracteres.';
 
     setErrors(next);
     if (Object.keys(next).length > 0) return;
@@ -64,13 +64,13 @@ export default function UserFormModal({ user, onClose, onSave }: UserFormModalPr
         className="max-h-full w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl"
       >
         <h2 id="user-form-title" className="text-lg font-semibold text-slate-900">
-          {isEdit ? 'Edit User' : 'Create User'}
+          {isEdit ? 'Editar usuario' : 'Crear usuario'}
         </h2>
 
         <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-4">
           <div>
             <label htmlFor="user-full-name" className="mb-1.5 block text-sm font-medium text-slate-700">
-              Full Name
+              Nombre completo
             </label>
             <input
               id="user-full-name"
@@ -86,7 +86,7 @@ export default function UserFormModal({ user, onClose, onSave }: UserFormModalPr
 
           <div>
             <label htmlFor="user-email" className="mb-1.5 block text-sm font-medium text-slate-700">
-              Email
+              Correo electrónico
             </label>
             <input
               id="user-email"
@@ -103,7 +103,7 @@ export default function UserFormModal({ user, onClose, onSave }: UserFormModalPr
 
           <div>
             <label htmlFor="user-password" className="mb-1.5 block text-sm font-medium text-slate-700">
-              Password{isEdit && <span className="font-normal text-slate-400"> (leave blank to keep current)</span>}
+              Contraseña{isEdit && <span className="font-normal text-slate-400"> (déjala en blanco para conservar la actual)</span>}
             </label>
             <input
               id="user-password"
@@ -111,7 +111,7 @@ export default function UserFormModal({ user, onClose, onSave }: UserFormModalPr
               className={inputClass}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder={isEdit ? '••••••••' : 'At least 8 characters'}
+              placeholder={isEdit ? '••••••••' : 'Mínimo 8 caracteres'}
               autoComplete="new-password"
               aria-invalid={Boolean(errors.password)}
             />
@@ -120,7 +120,7 @@ export default function UserFormModal({ user, onClose, onSave }: UserFormModalPr
 
           <div>
             <label htmlFor="user-role" className="mb-1.5 block text-sm font-medium text-slate-700">
-              User Role
+              Rol del usuario
             </label>
             <select
               id="user-role"
@@ -138,16 +138,16 @@ export default function UserFormModal({ user, onClose, onSave }: UserFormModalPr
 
           <div className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2.5">
             <div>
-              <p className="text-sm font-medium text-slate-900">Account status</p>
+              <p className="text-sm font-medium text-slate-900">Estado de la cuenta</p>
               <p className="text-xs text-slate-500">
-                {status === 'Active' ? 'User can sign in' : 'Sign-in is disabled'}
+                {status === 'Active' ? 'El usuario puede iniciar sesión' : 'El inicio de sesión está deshabilitado'}
               </p>
             </div>
             <button
               type="button"
               role="switch"
               aria-checked={status === 'Active'}
-              aria-label="Account status"
+              aria-label="Estado de la cuenta"
               onClick={() => setStatus((current) => (current === 'Active' ? 'Inactive' : 'Active'))}
               className={`relative h-6 w-11 shrink-0 rounded-full transition-colors focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-100 ${
                 status === 'Active' ? 'bg-indigo-600' : 'bg-slate-300'
@@ -167,13 +167,13 @@ export default function UserFormModal({ user, onClose, onSave }: UserFormModalPr
               onClick={onClose}
               className="h-10 rounded-lg border border-slate-300 px-4 text-sm font-medium text-slate-700 hover:bg-slate-50"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="h-10 rounded-lg bg-indigo-600 px-4 text-sm font-semibold text-white hover:bg-indigo-700"
             >
-              Save User
+              Guardar usuario
             </button>
           </div>
         </form>
